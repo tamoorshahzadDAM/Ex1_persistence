@@ -11,20 +11,30 @@ package Model;
  */
 public class Usuari {
     
-    
+    //Atributos
     private String nif;
     private String nom;
     private String cognoms;
 
+    /**
+     * Constructor vacio
+     */
     public Usuari() {
     }
 
+    /**
+     * Constructor
+     * @param nif
+     * @param nom
+     * @param cognoms 
+     */
     public Usuari(String nif, String nom, String cognoms) {
         this.nif = nif;
         this.nom = nom;
         this.cognoms = cognoms;
     }
 
+    //MEthodos get y sets de las variables.
     public String getNif() {
         return nif;
     }
@@ -49,6 +59,10 @@ public class Usuari {
         this.cognoms = cognoms;
     }
 
+    /**
+     * MEthodo to string para mostrar usuarios.
+     * @return 
+     */
     @Override
     public String toString() {
         return "Usuari{" + "nif=" + nif + ", nom=" + nom + ", cognoms=" + cognoms + '}';
