@@ -14,20 +14,21 @@ import java.util.List;
 
 /**
  *
- * @author ALUMNEDAM
+ * @author Tamoor
  */
 public class GestioUsuaris {
 
     //Intancias de clases
     ConfiguracioConnexio conConf = new ConfiguracioConnexio();
-    Connection con = conConf.getCon();
+    Connection con = conConf.getConnexio();
     Usuari user;
     PersistUsuari puser = new PersistUsuari(con);
     VistaText vista = new VistaText();
 
     /**
      * Methodo que muestra mensaje si ha anadi el usuario o no
-     * @param user 
+     *
+     * @param user
      */
     public void afegir(Usuari user) {
 
@@ -41,7 +42,8 @@ public class GestioUsuaris {
 
     /**
      * MEthodo que muestra mensaje de si ha anadirdo una lista o no
-     * @param lista 
+     *
+     * @param lista
      */
     public void afegirLlista(List<Usuari> lista) {
         boolean arregar = puser.afegirArray(lista);
@@ -54,7 +56,8 @@ public class GestioUsuaris {
 
     /**
      * MEthodo que muestra mensaje de si ha borrado el usuario o no
-     * @param nif 
+     *
+     * @param nif
      */
     public void eliminar(String nif) {
         boolean eliminar = puser.esborrar(nif);
@@ -66,8 +69,10 @@ public class GestioUsuaris {
     }
 
     /**
-     * MEthodo que muestra mensaje de si ha modificado los datos de usuarios o no
-     * @param user 
+     * MEthodo que muestra mensaje de si ha modificado los datos de usuarios o
+     * no
+     *
+     * @param user
      */
     public void modficar(Usuari user) {
         boolean modificado = puser.modificar(user);
@@ -80,7 +85,8 @@ public class GestioUsuaris {
 
     /**
      * MEthodo que muestra el usuario buscado por el dni
-     * @param dni 
+     *
+     * @param dni
      */
     public void cercarNif(String dni) {
         Usuari user = puser.Cercar(dni);

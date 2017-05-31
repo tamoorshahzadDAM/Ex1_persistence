@@ -14,7 +14,7 @@ import java.util.Scanner;
 
 /**
  *
- * @author ALUMNEDAM
+ * @author Tamoor
  */
 public class VistaText {
 
@@ -22,99 +22,100 @@ public class VistaText {
 
     ConfiguracioConnexio con = new ConfiguracioConnexio();
 
-     
     public void menuPrincipal() {
 
-        System.out.println("Elige un opcion: \n"
-                + "1. Afegir. \n"
-                + "2. Afegir Llista. \n"
-                + "3. Esborrar. \n"
-                + "4. Modificar. \n"
-                + "5. Cerca per nif. \n"
-                + "6. Cerca Tots. \n"
-                + "7. Sortir. \n");
+        while (true) {
+            System.out.println("Elige un opcion: \n"
+                    + "1. Afegir. \n"
+                    + "2. Afegir Llista. \n"
+                    + "3. Esborrar. \n"
+                    + "4. Modificar. \n"
+                    + "5. Cerca per nif. \n"
+                    + "6. Cerca Tots. \n"
+                    + "7. Sortir. \n");
 
-        int op = lector.nextInt();
-        GestioUsuaris gu = new GestioUsuaris();
-        switch (op) {
-            case 1:
-                //Afegir
+            int op = lector.nextInt();
+            GestioUsuaris gu = new GestioUsuaris();
+            switch (op) {
+                case 1:
+                    //Afegir
 
-                System.out.println("Introduce el dni");
-                String dni = lector.next();
-                System.out.println("Introduce el nombre");
-                String nombre = lector.next();
-                System.out.println("Introduce el apellido");
-                String apellido = lector.next();
-                Usuari user = new Usuari(dni, nombre, apellido);
-                gu.afegir(user);
-                break;
-            case 2:
-
-                //Afegir una lista
-                int numUsers= 4;
-                List<Usuari> lista = new ArrayList<Usuari>();
-                for (int i = 0; i <= numUsers; i++) {
-                    System.out.println("Introduce el dni");
-                    String dniLlista = lector.next();
+                    System.out.println("Introduce el Nif");
+                    String dni = lector.next();
                     System.out.println("Introduce el nombre");
-                    String nombreLlista = lector.next();
+                    String nombre = lector.next();
                     System.out.println("Introduce el apellido");
-                    String apellidoLlista = lector.next();
+                    String apellido = lector.next();
+                    Usuari user = new Usuari(dni, nombre, apellido);
+                    gu.afegir(user);
+                    break;
+                case 2:
 
-                    Usuari userLlista = new Usuari(dniLlista, nombreLlista, apellidoLlista);
-                    lista.add(0, userLlista);
-                }
+                    //Afegir una lista
+                    int numUsers = 3;
+                    List<Usuari> lista = new ArrayList<>();
+                    for (int i = 0; i < numUsers; i++) {
+                        System.out.println("Introduce el Nif");
+                        String dniLlista = lector.next();
+                        System.out.println("Introduce el nombre");
+                        String nombreLlista = lector.next();
+                        System.out.println("Introduce el apellido");
+                        String apellidoLlista = lector.next();
 
-                gu.afegirLlista(lista);
+                        Usuari userLlista = new Usuari(dniLlista, nombreLlista, apellidoLlista);
+                        lista.add(0, userLlista);
+                    }
 
-                break;
-            case 3:
+                    gu.afegirLlista(lista);
 
-                //Borrar el usuario
-                System.out.println("Introduce el dni para borar: ");
-                String nif = lector.next();
-                gu.eliminar(nif);
+                    break;
+                case 3:
 
-                break;
-            case 4:
+                    //Borrar el usuario
+                    System.out.println("Introduce el Nif para borar: ");
+                    String nif = lector.next();
+                    gu.eliminar(nif);
 
-                //Modificar datos de usuario
-                System.out.println("Introduce el dni del usuario que quieres modificar");
-                String dniMod = lector.next();
-                System.out.println("Introduce el nombre");
-                String nombreMod = lector.next();
-                System.out.println("Introduce el apellido");
-                String apellidoMod = lector.next();
+                    break;
+                case 4:
 
-                Usuari userMod = new Usuari(dniMod, nombreMod, apellidoMod);
-                gu.modficar(userMod);
+                    //Modificar datos de usuario
+                    System.out.println("Introduce el nif del usuario que quieres modificar");
+                    String dniMod = lector.next();
+                    System.out.println("Introduce el nombre");
+                    String nombreMod = lector.next();
+                    System.out.println("Introduce el apellido");
+                    String apellidoMod = lector.next();
 
-                break;
-            case 5:
+                    Usuari userMod = new Usuari(dniMod, nombreMod, apellidoMod);
+                    gu.modficar(userMod);
 
-                //Busquedo por dni
-                System.out.println("Introduce el dni para buscar");
-                String dniBuscar = lector.next();
-                gu.cercarNif(dniBuscar);
+                    break;
+                case 5:
 
-                break;
-            case 6:
-                //Muestra todos los usuarios
-                 gu.cercaTots();
+                    //Busquedo por dni
+                    System.out.println("Introduce el nif para buscar");
+                    String dniBuscar = lector.next();
+                    gu.cercarNif(dniBuscar);
 
-                break;
-            case 7:
+                    break;
+                case 6:
+                    //Muestra todos los usuarios
+                    gu.cercaTots();
 
-                //Cierra conexion
-                if (con.esOberta()) {
-                    con.tancarCon();
-                    System.out.println("Conexion cerrado.");
-                }
+                    break;
+                case 7:
 
-                //Sale de applicaion
-                System.exit(0);
+                    //Cierra conexion
+                    if (con.getCon()) {
+                        con.tancarConnexio();
+                        //System.out.println("Conexion cerrado.");
+                    }
 
+                    //Sale de applicaion
+                    System.exit(0);
+
+            }
         }
 
     }

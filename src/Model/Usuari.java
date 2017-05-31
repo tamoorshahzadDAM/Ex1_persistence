@@ -7,10 +7,10 @@ package Model;
 
 /**
  *
- * @author ALUMNEDAM
+ * @author Tamoor
  */
 public class Usuari {
-    
+
     //Atributos
     private String nif;
     private String nom;
@@ -24,9 +24,10 @@ public class Usuari {
 
     /**
      * Constructor
+     *
      * @param nif
      * @param nom
-     * @param cognoms 
+     * @param cognoms
      */
     public Usuari(String nif, String nom, String cognoms) {
         this.nif = nif;
@@ -61,14 +62,12 @@ public class Usuari {
 
     /**
      * MEthodo to string para mostrar usuarios.
-     * @return 
+     *
+     * @return
      */
     @Override
     public String toString() {
         return "Usuari{" + "nif=" + nif + ", nom=" + nom + ", cognoms=" + cognoms + '}';
     }
-    
-    
-    
-    
+
 }

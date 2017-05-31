@@ -16,7 +16,7 @@ import java.util.List;
 
 /**
  *
- * @author ALUMNEDAM
+ * @author Tamoor
  */
 public class PersistUsuari {
 
@@ -31,44 +31,44 @@ public class PersistUsuari {
      * Methodo booleano que por parametros le paso un objeto usuario y tiene una
      * sentencia sql, para inserta ese usuario en base de datos, si lo consigue
      * devuelve un true en caso contrario de vuelve un fals.
+     *
      * @param u
-     * @return 
+     * @return
      */
-    public boolean afegir(Usuari u) {
-        boolean afegit = true;
+    public boolean afegir(Usuari user) {
+        boolean afegit;
 
-        String sentencia = "INSERT INTO USUARIS(nif, nom, cognoms)"
-                + "VALUES('" + u.getNif() + "','" + u.getNom() + "','"
-                + u.getCognoms() + ")";
+        String sentencia = "INSERT INTO usuaris(nif, nom, cognoms) values "
+                + "('" + user.getNif() + "','" + user.getNom() + "','" + user.getCognoms() + "')";
 
         try {
-            try (Statement st = con.createStatement()) {
-                System.out.println("UPDATE: " + st.executeUpdate(sentencia));
-                //tanca el recurs 
-            }
+            Statement st = con.createStatement();
+
+            System.out.println("UPDATE: " + st.executeUpdate(sentencia));
+
+            st.close();//tanca el recurs 
             afegit = true;
         } catch (SQLException ex) {
-            System.out.println("error" + ex.getMessage());
+            System.err.println("error" + ex.getMessage());
             afegit = false;
         }
-
         return afegit;
     }
-    
 
     /**
-     * Methodo booleano que por parametros le paso una lista de usuario y tiene una
-     * sentencia sql, para inserta ese lista de usuario en base de datos, si lo consigue
-     * devuelve un true en caso contrario devuelve un fals.
+     * Methodo booleano que por parametros le paso una lista de usuario y tiene
+     * una sentencia sql, para inserta ese lista de usuario en base de datos, si
+     * lo consigue devuelve un true en caso contrario devuelve un fals.
+     *
      * @param llista
-     * @return 
+     * @return
      */
     public boolean afegirArray(List<Usuari> llista) {
         boolean afegit = true;
         try {
             for (int i = 0; i < llista.size(); i++) {
                 try (Statement st = con.createStatement()) {
-                    String sentencia = "INSERT INTO USUARIS(nif, nom, cognom) values "
+                    String sentencia = "INSERT INTO USUARIS(nif, nom, cognoms) values "
                             + "('" + llista.get(i).getNif() + "','" + llista.get(i).getNom() + "','" + llista.get(i).getCognoms() + "')";
                     System.out.println("UPDATE: " + st.executeUpdate(sentencia));
                     //tanca el recurs 
@@ -83,11 +83,12 @@ public class PersistUsuari {
     }
 
     /**
-     * Methodo para borrar en usuario, por parametros le pasao un nif de usuario 
-     * y los busca en base de datos y lo borra a ese usuario. Devuelvo un true si
-     * lo consigue sino devuelve un false.
+     * Methodo para borrar en usuario, por parametros le pasao un nif de usuario
+     * y los busca en base de datos y lo borra a ese usuario. Devuelvo un true
+     * si lo consigue sino devuelve un false.
+     *
      * @param nif
-     * @return 
+     * @return
      */
     public boolean esborrar(String nif) {
         boolean eliminat = false;
@@ -103,21 +104,21 @@ public class PersistUsuari {
         return eliminat;
     }
 
-    
     /**
      * Methodo booleano que por parametros le paso un objeto usuario y tiene una
      * sentencia sql, que lo busca al usuario de dni que le pasamos y nos deja
-     * modificar su nombre y apellido. devuelvo un true se consigue modificar
-     * si no devuelve un fals
+     * modificar su nombre y apellido. devuelvo un true se consigue modificar si
+     * no devuelve un fals
+     *
      * @param user
-     * @return 
+     * @return
      */
     public boolean modificar(Usuari user) {
         boolean modificat = false;
         PreparedStatement ps;
 
         try {
-            String sentencia = "UPDATE USUARIS SET nom = ? , cognom = ? WHERE nif = ?";
+            String sentencia = "UPDATE USUARIS SET nom = ? , cognoms = ? WHERE nif = ?";
             ps = con.prepareStatement(sentencia);
             ps.setString(1, user.getNom());
             ps.setString(2, user.getCognoms());
@@ -132,10 +133,11 @@ public class PersistUsuari {
     }
 
     /**
-     * Methodo que por parametros le paso un nif y este methodo busca el usaurio de 
-     * este nif, y lo muestra.
+     * Methodo que por parametros le paso un nif y este methodo busca el usaurio
+     * de este nif, y lo muestra.
+     *
      * @param nif
-     * @return 
+     * @return
      */
     public Usuari Cercar(String nif) {
 
@@ -146,7 +148,7 @@ public class PersistUsuari {
                 rs = st.executeQuery("SELECT * FROM USUARIS WHERE nif='" + nif + "'");
                 if (rs.next()) {
                     user = new Usuari(rs.getString(1), rs.getString(2), rs.getString(3));
-                    System.out.println("Nom: " + user.getNom() + " Cognom: " + user.getCognoms());
+                    System.out.println("Nom: " + user.getNom() + " Cognoms: " + user.getCognoms());
                 }
             }
             rs.close();
@@ -157,9 +159,11 @@ public class PersistUsuari {
     }
 
     /**
-     * Methodo que crea una lista de usuarios, con un bucle while mientras hay filas 
-     * en base de datos va anadiendo los usuario en la lista y lo va mostrando.
-     * @return 
+     * Methodo que crea una lista de usuarios, con un bucle while mientras hay
+     * filas en base de datos va anadiendo los usuario en la lista y lo va
+     * mostrando.
+     *
+     * @return
      */
     public List<Usuari> cercarTots() {
 
@@ -173,7 +177,7 @@ public class PersistUsuari {
                 while (rs.next()) {
                     llista.add(new Usuari(rs.getString(1), rs.getString(2), rs.getString(3)));
 
-                    System.out.println(" Dni:" + llista.get(num).getNif() + " nombre: " + llista.get(num).getNom() + " apellido:" + llista.get(num).getCognoms());
+                    System.out.println(" Dni:" + llista.get(num).getNif() + " Noms: " + llista.get(num).getNom() + " Cognoms:" + llista.get(num).getCognoms());
                     num++;
 
                 }
@@ -184,6 +188,5 @@ public class PersistUsuari {
         }
         return llista;
     }
-    
 
 }

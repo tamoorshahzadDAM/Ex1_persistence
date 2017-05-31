@@ -10,7 +10,7 @@ import Vista.VistaText;
 
 /**
  *
- * @author ALUMNEDAM
+ * @author Tamoor
  */
 public class Ex1_Persist {
 
@@ -23,7 +23,7 @@ public class Ex1_Persist {
 
         VistaText vista = new VistaText();
         //Abrir conexion
-        if (!con.esOberta()) {
+        if (!con.getCon()) {
             con.getCon();
 
         }
